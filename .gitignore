@@ -1,3 +1,7 @@
 /4inarow
 /*.kdev4
-
+/*.cbp
+/*.depend
+/*.layout
+/bin/
+/obj/
