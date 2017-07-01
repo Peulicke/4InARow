@@ -205,3 +205,4 @@ int main(int argc, char **argv){
     cout << turnsAvg << endl << 100*turnsAvg/(game.size()*game[0].size()) << "%" << endl;*/
     return 0;
 }
+
