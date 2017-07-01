@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <unistd.h>
 
 using namespace std;
 
@@ -139,29 +140,56 @@ pair<int,float> turn(int player, int level = 0){
     return make_pair(best,bestWinRate);
 }
 
-int main(){
-    /*while(!full() && win == 0){
-        int i;
-        cin >> i;
-        --i;
-        if(!place(i,1)){
-            cout << "Illegal move" << endl;
-            continue;
+void usage(char * const *argv) {
+	cout << "Usage:" << endl;
+	cout << argv[0] << " [-2] [-h]" << endl;
+}
+
+int main(int argc, char **argv){
+    std::cout.setf(std::ios::unitbuf);
+
+    int opt;
+    bool computerOnly = false;
+
+    while((opt = getopt(argc, argv, "ch")) != -1) {
+        switch(opt) {
+            case 'h':
+                usage(argv);
+                return 0;
+            case 'c':
+                computerOnly = true;
+                break;
+            default:
+                cout << "Bad option" << endl;
+                return 1;
         }
-        printBoard();
-        if(win != 0) break;
-        place(turn(-1).first,-1);
-        printBoard();
-    }*/
-    for(int player = 1; win == 0 && !full(); player = -player){
-        place(turn(player).first,player);
-        printBoard();
     }
-    cout << "Winner: ";
-    if(win == 0) cout << "none";
-    if(win == 1) cout << "X";
-    if(win == -1) cout << "O";
-    cout << endl;
+
+    if(!computerOnly) {
+        while(!full() && win == 0){
+            int i;
+            cin >> i;
+            --i;
+            if(!place(i,1)){
+                cout << "Illegal move" << endl;
+                continue;
+            }
+            printBoard();
+            if(win != 0) break;
+            place(turn(-1).first,-1);
+            printBoard();
+        }
+    } else {
+        for(int player = 1; win == 0 && !full(); player = -player){
+            place(turn(player).first,player);
+            printBoard();
+        }
+        cout << "Winner: ";
+        if(win == 0) cout << "none";
+        if(win == 1) cout << "X";
+        if(win == -1) cout << "O";
+        cout << endl;
+    }
     /*
     int numGames = 100000;
     float turnsAvg = 0;
