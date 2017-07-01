@@ -142,7 +142,7 @@ pair<int,float> turn(int player, int level = 0){
 
 void usage(char * const *argv) {
 	cout << "Usage:" << endl;
-	cout << argv[0] << " [-2] [-h]" << endl;
+	cout << argv[0] << " [-c] [-h]" << endl;
 }
 
 int main(int argc, char **argv){
